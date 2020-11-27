@@ -1,9 +1,14 @@
 # wsgi.py
 # pylint: disable=missing-docstring
 
-from flask import Flask, abort, jsonify
+from flask import Flask, abort, jsonify, request
+
+import itertools
+
 
 app = Flask(__name__)
+
+BASE_URL = '/api/v1'
 
 PRODUCTS = {
     1: { 'id': 1, 'name': 'Skello' },
@@ -11,6 +16,8 @@ PRODUCTS = {
     3: { 'id': 3, 'name': 'test'}
 }
 
+START_INDEX = len(PRODUCTS) + 1
+IDENTIFIER_GENERATOR = itertools.count(START_INDEX)
 
 @app.route('/')
 def hello():
